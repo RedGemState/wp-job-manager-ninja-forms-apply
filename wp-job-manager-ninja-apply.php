@@ -48,8 +48,8 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	 * @since WP Job Manager - Apply with Gravity Forms 1.0
 	 */
 	public function __construct() {
-		$this->jobs_form_id    = get_option( 'job_manager_ninja'        , 0 );
-		$this->resumes_form_id = get_option( 'job_manager_ninja_resumes', 0 );
+		$this->jobs_form_id    = get_option( 'job_manager_apply_job'   , 0 );
+		$this->resumes_form_id = get_option( 'job_manager_apply_resume', 0 );
 
 		$this->setup_actions();
 		$this->setup_globals();
@@ -119,7 +119,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	 */
 	public function job_manager_settings( $settings ) {
 		$settings[ 'job_listings' ][1][] = array(
-			'name'    => 'job_manager_ninja',
+			'name'    => 'job_manager_job_apply',
 			'std'     => null,
 			'type'    => 'select',
 			'options' => self::get_forms(),
@@ -129,7 +129,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 
 		if ( class_exists( 'WP_Resume_Manager' ) ) {
 			$settings[ 'job_listings' ][1][] = array(
-				'name'  => 'job_manager_ninja_resumes',
+				'name'  => 'job_manager_resume_apply',
 				'std'   => null,
 				'type'    => 'select',
 				'options' => self::get_forms(),
@@ -142,9 +142,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	}
 
 	private static function get_forms() {
-
-		$forms = array( 0 => __( 'Please select a form', 'job_manager_ninja_apply' ) );
-
+		$forms  = array( 0 => __( 'Please select a form', 'job_manager_ninja_apply' ) );
 		$_forms = ninja_forms_get_all_forms();
 
 		if ( ! empty( $_forms ) ) {
@@ -165,7 +163,6 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	 * @return string The email to notify.
 	 */
 	public function notification_email() {
-
 		if ( ! is_singular( array( 'resume', 'job_listing' ) ) ) {
 			return;
 		}
