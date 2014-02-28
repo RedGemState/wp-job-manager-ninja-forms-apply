@@ -48,8 +48,8 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	 * @since WP Job Manager - Apply with Gravity Forms 1.0
 	 */
 	public function __construct() {
-		$this->jobs_form_id    = get_option( 'job_manager_apply_job'   , 0 );
-		$this->resumes_form_id = get_option( 'job_manager_apply_resume', 0 );
+		$this->jobs_form_id    = get_option( 'job_manager_job_apply'   , 0 );
+		$this->resumes_form_id = get_option( 'job_manager_resume_apply', 0 );
 
 		$this->setup_actions();
 		$this->setup_globals();
@@ -163,10 +163,6 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	 * @return string The email to notify.
 	 */
 	public function notification_email() {
-		if ( ! is_singular( array( 'resume', 'job_listing' ) ) ) {
-			return;
-		}
-
 		global $ninja_forms_processing;
 
 		$form_id = $ninja_forms_processing->get_form_ID();
@@ -175,9 +171,22 @@ class Astoundify_Job_Manager_Apply_Ninja {
 			return;
 		}
 
-		global $post, $_proper_ninja_email;
+		global $_proper_ninja_email;
 
-		$_proper_ninja_email = $form_id == $this->jobs_form_id ? $post->_application : $post->_candidate_email;
+		$object = $field_id = null;
+		$fields = $ninja_forms_processing;
+
+		foreach ( $fields->data[ 'field_data' ] as $field ) {
+			if ( 'application_email' == $field[ 'data' ][ 'label' ] ) {
+				$field_id = $field[ 'id' ];
+
+				break;
+			}
+		}
+
+		$object = get_post( $ninja_forms_processing->get_field_value( $field_id ) );
+
+		$_proper_ninja_email = $form_id == $this->jobs_form_id ? $object->_application : $object->_candidate_email;
 
 		add_filter( 'wp_mail', array( $this, 'proper_email' ) );
 	}
