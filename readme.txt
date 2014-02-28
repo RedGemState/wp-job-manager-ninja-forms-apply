@@ -38,10 +38,21 @@ You **must** create a *hidden* field with the following specific settings:
 
 [View an image of the settings](https://i.cloudup.com/pnfVzYBFiN.png)
 
+The Job/Resume listing must also have an email address associated with it, not a URL to a website.
+
 == Installation ==
 
 1. Install and Activate
-2. Go to "Job Listings > Settings" and enter select the form you would like from the dropdown.
+2. Create your forms via the Ninja Forms interface. Be sure to review the FAQ for settings details.
+
+You **must** create a *hidden* field with the following specific settings:
+
+* **Label:** `application_email`
+* **Default Value:** `Post/Page ID`
+
+[View an image of the settings](https://i.cloudup.com/pnfVzYBFiN.png)
+
+3. Go to "Job Listings > Settings" and enter select the form you would like from the dropdown.
 
 == Changelog ==
 
