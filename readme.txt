@@ -40,6 +40,12 @@ You **must** create a *hidden* field with the following specific settings:
 
 The Job/Resume listing must also have an email address associated with it, not a URL to a website.
 
+= I am using Jobify and it's not working =
+
+**Please make sure you have the latest version of Jobify from ThemeForest**
+
+If you have purchased Jobify and still have questions, please post on our dedicated support forum: http://support.astoundify.com
+
 == Installation ==
 
 1. Install and Activate
