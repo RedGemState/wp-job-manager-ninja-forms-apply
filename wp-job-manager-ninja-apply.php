@@ -5,7 +5,7 @@
  * Description: Apply to jobs that have added an email address via Ninja Forms
  * Author:      Astoundify, JustinSainton
  * Author URI:  http://astoundify.com
- * Version:     1.1.1
+ * Version:     1.0.0
  * Text Domain: job_manager_ninja_apply
  */
 
@@ -32,6 +32,11 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	private $resumes_form_id;
 
 	/**
+	 * @var $_proper_ninja_email
+	 */
+	private $_proper_ninja_email;
+
+	/**
 	 * Make sure only one instance is only running.
 	 */
 	public static function get_instance() {
@@ -45,7 +50,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	/**
 	 * Start things up.
 	 *
-	 * @since WP Job Manager - Apply with Gravity Forms 1.0
+	 * @since WP Job Manager - Apply with Ninja Forms 1.0
 	 */
 	public function __construct() {
 		$this->jobs_form_id    = get_option( 'job_manager_job_apply'   , 0 );
@@ -60,25 +65,25 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	 * Set some smart defaults to class variables. Allow some of them to be
 	 * filtered to allow for early overriding.
 	 *
-	 * @since WP Job Manager - Apply with Gravity Forms 1.0
+	 * @since WP Job Manager - Apply with Ninja Forms 1.0
 	 *
 	 * @return void
 	 */
 	private function setup_globals() {
 		$this->file       = __FILE__;
 
-		$this->basename   = apply_filters( 'job_manager_ninja_apply_plugin_basenname', plugin_basename( $this->file ) );
-		$this->plugin_dir = apply_filters( 'job_manager_ninja_apply_plugin_dir_path' , plugin_dir_path( $this->file ) );
-		$this->plugin_url = apply_filters( 'job_manager_ninja_apply_plugin_dir_url  ', plugin_dir_url ( $this->file ) );
+		$this->basename   = plugin_basename( $this->file );
+		$this->plugin_dir = plugin_dir_path( $this->file );
+		$this->plugin_url = plugin_dir_url ( $this->file );
 
-		$this->lang_dir   = apply_filters( 'job_manager_ninja_apply_lang_dir', trailingslashit( $this->plugin_dir . 'languages' ) );
+		$this->lang_dir   = trailingslashit( $this->plugin_dir . 'languages' );
 		$this->domain     = 'job_manager_ninja_apply';
 	}
 
 	/**
 	 * Loads the plugin language files
 	 *
- 	 * @since WP Job Manager - Apply with Gravity Forms 1.0
+ 	 * @since WP Job Manager - Apply with Ninja Forms 1.0
 	 */
 	public function load_textdomain() {
 		$locale        = apply_filters( 'plugin_locale', get_locale(), $this->domain );
@@ -99,7 +104,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	/**
 	 * Setup the default hooks and actions
 	 *
-	 * @since WP Job Manager - Apply with Gravity Forms 1.0
+	 * @since WP Job Manager - Apply with Ninja Forms 1.0
 	 *
 	 * @return void
 	 */
@@ -112,7 +117,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	/**
 	 * Add a setting in the admin panel to enter the ID of the Gravity Form to use.
 	 *
-	 * @since WP Job Manager - Apply with Gravity Forms 1.0
+	 * @since WP Job Manager - Apply with Ninja Forms 1.0
 	 *
 	 * @param array $settings
 	 * @return array $settings
@@ -158,7 +163,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	/**
 	 * Set the notification email when sending an email.
 	 *
-	 * @since WP Job Manager - Apply with Gravity Forms 1.0
+	 * @since WP Job Manager - Apply with Ninja Forms 1.0
 	 *
 	 * @return string The email to notify.
 	 */
@@ -170,8 +175,6 @@ class Astoundify_Job_Manager_Apply_Ninja {
 		if ( $form_id !== absint( $this->jobs_form_id ) && $form_id !== absint( $this->resumes_form_id ) ) {
 			return;
 		}
-
-		global $_proper_ninja_email;
 
 		$object = $field_id = null;
 		$fields = $ninja_forms_processing;
@@ -186,16 +189,14 @@ class Astoundify_Job_Manager_Apply_Ninja {
 
 		$object = get_post( $ninja_forms_processing->get_field_value( $field_id ) );
 
-		$_proper_ninja_email = $form_id == $this->jobs_form_id ? $object->_application : $object->_candidate_email;
+		$this->_proper_ninja_email = $form_id == $this->jobs_form_id ? $object->_application : $object->_candidate_email;
 
 		add_filter( 'wp_mail', array( $this, 'proper_email' ) );
 	}
 
 	function proper_email( $mail ) {
-		global $_proper_ninja_email;
-
-		if ( filter_var( $_proper_ninja_email, FILTER_VALIDATE_EMAIL ) ) {
-			$mail['to'] = $_proper_ninja_email;
+		if ( filter_var( $this->_proper_ninja_email, FILTER_VALIDATE_EMAIL ) ) {
+			$mail[ 'to' ] = $this->_proper_ninja_email;
 		}
 
 		return $mail;
@@ -205,5 +206,4 @@ class Astoundify_Job_Manager_Apply_Ninja {
 		remove_filter( 'wp_mail', array( $this, 'proper_email' ) );
 	}
 }
-
 add_action( 'init', array( 'Astoundify_Job_Manager_Apply_Ninja', 'get_instance' ) );
