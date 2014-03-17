@@ -1,4 +1,4 @@
-=== WP Job Manager - Apply with Ninja Forms ===
+=== Apply with Ninja Forms for WP Job Manager ===
 
 Author URI: http://astoundify.com
 Plugin URI: https://github.com/Astoundify/wp-job-manager-ninja-forms-apply/
