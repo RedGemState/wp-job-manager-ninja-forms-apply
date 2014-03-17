@@ -40,6 +40,10 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	 * Make sure only one instance is only running.
 	 */
 	public static function get_instance() {
+		if ( ! defined( 'NINJA_FORMS_DIR' ) ) {
+			return;
+		}
+
 		if ( ! isset ( self::$instance ) ) {
 			self::$instance = new self;
 		}
