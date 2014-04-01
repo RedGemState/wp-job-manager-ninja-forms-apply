@@ -114,8 +114,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	 */
 	private function setup_actions() {
 		add_filter( 'job_manager_settings'    , array( $this, 'job_manager_settings' ) );
-		add_action( 'ninja_forms_post_process', array( $this, 'notification_email' ) );
-		add_action( 'ninja_forms_post_process', array( $this, 'remove_email_filter' ), 99 );
+		add_action( 'ninja_forms_email_admin', array( $this, 'notification_email' ) );
 	}
 
 	/**
@@ -203,11 +202,9 @@ class Astoundify_Job_Manager_Apply_Ninja {
 			$mail[ 'to' ] = $this->_proper_ninja_email;
 		}
 
-		return $mail;
-	}
-
-	function remove_email_filter() {
 		remove_filter( 'wp_mail', array( $this, 'proper_email' ) );
+
+		return $mail;
 	}
 }
 add_action( 'init', array( 'Astoundify_Job_Manager_Apply_Ninja', 'get_instance' ) );
