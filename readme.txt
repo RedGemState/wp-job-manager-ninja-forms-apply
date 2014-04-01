@@ -7,7 +7,7 @@ Contributors: spencerfinnell
 Tags: job, job listing, job apply, wp job manager, job manager, ninja forms, ninja, forms
 Requires at least: 3.5
 Tested up to: 3.8
-Stable Tag: 1.0.0
+Stable Tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,7 +21,7 @@ Apply directly to Jobs (and Resumes if using Resume Manager) via a custom Ninja 
 
 Astoundify has released the first fully integrated WP Job Manager theme. Check out ["Jobify"](http://themeforest.net/item/jobify-job-board-wordpress-theme/5247604?ref=Astoundify)
 
-= Tutorial Video = 
+= Tutorial Video =
 
 https://vimeo.com/89439524/
 
@@ -66,6 +66,11 @@ You **must** create a *hidden* field with the following specific settings:
 
 == Changelog ==
 
-= 1.0: March 2, 2014 =
+= 1.0.1: March 31, 2014 =
+
+* Fix: Change the hook locations for filtering wp_mail() to more reliable places.
+* Fix: Update text domain.
+
+= 1.0.0: March 2, 2014 =
 
 * First official release!

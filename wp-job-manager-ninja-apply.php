@@ -5,7 +5,7 @@
  * Description: Apply to jobs that have added an email address via Ninja Forms
  * Author:      Astoundify, JustinSainton
  * Author URI:  http://astoundify.com
- * Version:     1.0.0
+ * Version:     1.0.1
  * Text Domain: job_manager_ninja_apply
  */
 
@@ -81,7 +81,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 		$this->plugin_url = plugin_dir_url ( $this->file );
 
 		$this->lang_dir   = trailingslashit( $this->plugin_dir . 'languages' );
-		$this->domain     = 'job_manager_ninja_apply';
+		$this->domain     = 'wp-job-manager-ninja-forms-apply';
 	}
 
 	/**
@@ -131,8 +131,8 @@ class Astoundify_Job_Manager_Apply_Ninja {
 			'std'     => null,
 			'type'    => 'select',
 			'options' => self::get_forms(),
-			'label'   => __( 'Jobs Ninja Form', 'job_manager_ninja_apply' ),
-			'desc'    => __( 'The Ninja Form you created for contacting employers.', 'job_manager_ninja_apply' ),
+			'label'   => __( 'Jobs Ninja Form', 'wp-job-manager-ninja-forms-apply' ),
+			'desc'    => __( 'The Ninja Form you created for contacting employers.', 'wp-job-manager-ninja-forms-apply' ),
 		);
 
 		if ( class_exists( 'WP_Resume_Manager' ) ) {
@@ -141,8 +141,8 @@ class Astoundify_Job_Manager_Apply_Ninja {
 				'std'   => null,
 				'type'    => 'select',
 				'options' => self::get_forms(),
-				'label' => __( 'Resumes Ninja Form', 'job_manager_ninja_apply' ),
-				'desc'  => __( 'The Ninja Form you created for contacting employees.', 'job_manager_ninja_apply' ),
+				'label' => __( 'Resumes Ninja Form', 'wp-job-manager-ninja-forms-apply' ),
+				'desc'  => __( 'The Ninja Form you created for contacting employees.', 'wp-job-manager-ninja-forms-apply' ),
 			);
 		}
 
@@ -150,7 +150,7 @@ class Astoundify_Job_Manager_Apply_Ninja {
 	}
 
 	private static function get_forms() {
-		$forms  = array( 0 => __( 'Please select a form', 'job_manager_ninja_apply' ) );
+		$forms  = array( 0 => __( 'Please select a form', 'wp-job-manager-ninja-forms-apply' ) );
 		$_forms = ninja_forms_get_all_forms();
 
 		if ( ! empty( $_forms ) ) {
