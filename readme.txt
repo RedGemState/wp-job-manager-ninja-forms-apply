@@ -1,4 +1,4 @@
-=== WP Job Manager - Apply with Ninja Forms ===
+=== Apply with Ninja Forms for WP Job Manager ===
 
 Author URI: http://astoundify.com
 Plugin URI: https://github.com/Astoundify/wp-job-manager-ninja-forms-apply/
@@ -20,6 +20,10 @@ Apply directly to Jobs (and Resumes if using Resume Manager) via a custom Ninja 
 = Where can I use this? =
 
 Astoundify has released the first fully integrated WP Job Manager theme. Check out ["Jobify"](http://themeforest.net/item/jobify-job-board-wordpress-theme/5247604?ref=Astoundify)
+
+= Tutorial Video = 
+
+https://vimeo.com/89439524/
 
 == Frequently Asked Questions ==
 
