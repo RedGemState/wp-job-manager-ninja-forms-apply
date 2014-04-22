@@ -44,6 +44,8 @@ You **must** create a *hidden* field with the following specific settings:
 
 The Job/Resume listing must also have an email address associated with it, not a URL to a website.
 
+In "Administrator Email Settings" add a *dummy* email address as the first email to send a notification to. You can add real email addresses under this if you do need an actual admin confirmation.
+
 = I am using Jobify and it's not working =
 
 **Please make sure you have the latest version of Jobify from ThemeForest**
